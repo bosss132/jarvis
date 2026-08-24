@@ -1,0 +1,21 @@
+name: Build APK
+
+on:
+push:
+branches:
+- main
+
+jobs:
+build:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v2
+- name: Build with Buildozer
+uses: ArtemBagritsev/buildozer-in-docker@v1.1
+with:
+args: buildozer android debug
+- name: Upload APK
+uses: actions/upload-artifact@v2
+with:
+name: package
+path: bin/*.apk
